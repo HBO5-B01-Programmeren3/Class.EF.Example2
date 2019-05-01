@@ -4,14 +4,16 @@ using Class.EF.Example2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Class.EF.Example2.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20190501191457_SeedData1")]
+    partial class SeedData1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,26 +37,6 @@ namespace Class.EF.Example2.Migrations
                     b.HasIndex("LecturerId");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            LecturerId = 1L,
-                            Name = "Programming C#"
-                        },
-                        new
-                        {
-                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            LecturerId = 2L,
-                            Name = "Elementary Database Design"
-                        },
-                        new
-                        {
-                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            LecturerId = 1L,
-                            Name = "ASP.NET Core"
-                        });
                 });
 
             modelBuilder.Entity("Class.EF.Example2.Entities.Student", b =>
@@ -138,34 +120,6 @@ namespace Class.EF.Example2.Migrations
                         .IsUnique();
 
                     b.ToTable("StudentInfo");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100L,
-                            Email = "martypants@school.example",
-                            StudentId = 1L
-                        },
-                        new
-                        {
-                            Id = 101L,
-                            Email = "chrismahs@school.example",
-                            Phone = "111 11 11 11",
-                            StudentId = 2L
-                        },
-                        new
-                        {
-                            Id = 102L,
-                            Email = "annaf@school.example",
-                            Phone = "222 22 22 22",
-                            StudentId = 3L
-                        },
-                        new
-                        {
-                            Id = 103L,
-                            Email = "willszeedt@school.example",
-                            StudentId = 4L
-                        });
                 });
 
             modelBuilder.Entity("Class.EF.Example2.Entities.Teacher", b =>

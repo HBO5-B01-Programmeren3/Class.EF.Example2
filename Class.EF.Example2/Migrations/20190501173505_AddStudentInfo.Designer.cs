@@ -4,14 +4,16 @@ using Class.EF.Example2.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Class.EF.Example2.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    partial class SchoolContextModelSnapshot : ModelSnapshot
+    [Migration("20190501173505_AddStudentInfo")]
+    partial class AddStudentInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +26,7 @@ namespace Class.EF.Example2.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long?>("LecturerId");
+                    b.Property<long>("LecturerId");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -35,26 +37,6 @@ namespace Class.EF.Example2.Migrations
                     b.HasIndex("LecturerId");
 
                     b.ToTable("Courses");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            LecturerId = 1L,
-                            Name = "Programming C#"
-                        },
-                        new
-                        {
-                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            LecturerId = 2L,
-                            Name = "Elementary Database Design"
-                        },
-                        new
-                        {
-                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            LecturerId = 1L,
-                            Name = "ASP.NET Core"
-                        });
                 });
 
             modelBuilder.Entity("Class.EF.Example2.Entities.Student", b =>
@@ -74,34 +56,6 @@ namespace Class.EF.Example2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Birthdate = new DateTime(2001, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Marty Pants"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Birthdate = new DateTime(1998, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Chris Mahs",
-                            Scholarship = 1200m
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            Birthdate = new DateTime(1997, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Ann A. Fabettick",
-                            Scholarship = 600m
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            Birthdate = new DateTime(1999, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Will Szeedt"
-                        });
                 });
 
             modelBuilder.Entity("Class.EF.Example2.Entities.StudentCourse", b =>
@@ -138,34 +92,6 @@ namespace Class.EF.Example2.Migrations
                         .IsUnique();
 
                     b.ToTable("StudentInfo");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 100L,
-                            Email = "martypants@school.example",
-                            StudentId = 1L
-                        },
-                        new
-                        {
-                            Id = 101L,
-                            Email = "chrismahs@school.example",
-                            Phone = "111 11 11 11",
-                            StudentId = 2L
-                        },
-                        new
-                        {
-                            Id = 102L,
-                            Email = "annaf@school.example",
-                            Phone = "222 22 22 22",
-                            StudentId = 3L
-                        },
-                        new
-                        {
-                            Id = 103L,
-                            Email = "willszeedt@school.example",
-                            StudentId = 4L
-                        });
                 });
 
             modelBuilder.Entity("Class.EF.Example2.Entities.Teacher", b =>
@@ -183,27 +109,14 @@ namespace Class.EF.Example2.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Teachers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            Name = "Mr. Ned Farious",
-                            YearlyWage = 27150m
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            Name = "Mrs. Alley Hope",
-                            YearlyWage = 31520m
-                        });
                 });
 
             modelBuilder.Entity("Class.EF.Example2.Entities.Course", b =>
                 {
                     b.HasOne("Class.EF.Example2.Entities.Teacher", "Lecturer")
                         .WithMany("Courses")
-                        .HasForeignKey("LecturerId");
+                        .HasForeignKey("LecturerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Class.EF.Example2.Entities.StudentCourse", b =>
