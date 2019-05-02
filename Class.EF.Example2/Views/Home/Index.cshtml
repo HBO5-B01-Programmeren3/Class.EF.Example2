@@ -1,8 +1,61 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model Class.EF.Example2.Models.HomeIndexVm
+@{
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Teacher with ID 1</h2>
+<article>
+    <h4>Name: @(Model.TeacherWithIdOne?.Name ?? "[Not Found]")</h4>
+    <p>Wage: @(Model.TeacherWithIdOne?.YearlyWage?.ToString("C2") ?? "unknown")</p>
+</article>
+
+<h2>All students born before 2000</h2>
+<ul>
+    @foreach (var student in Model.StudentsBornBefore2k)
+    {
+        <li>
+            <h4>Name: @student.Name</h4>
+            <p>Scholarship: @(student.Scholarship?.ToString("C2") ?? "None")</p>
+            <p>Birthday: @(student.Birthdate.ToString("dd MMMM yyyy"))</p>
+        </li>
+    }
+</ul>
+
+<article>
+    <h2>Total Amount of Scholarships</h2>
+    <div>@Model.TotalScholarships.ToString("C2")</div>
+</article>
+
+<h2>Scholarship students with Contact info</h2>
+<ul>
+    @foreach (var student in Model.ScholarShipStudentsWithInfo)
+    {
+        <li>
+            <h4>Name: @student.Name</h4>
+            <p>Scholarship: @(student.Scholarship?.ToString("C2") ?? "None")</p>
+            <p>Birthday: @(student.Birthdate.ToString("dd MMMM yyyy"))</p>
+            <p>E-mail: @student.ContactInfo.Email</p>
+            <p>Phone: @student.ContactInfo.Phone</p>
+        </li>
+    }
+</ul>
+
+<h2>Courses - Full Graph</h2>
+<ul>
+    @foreach (var course in Model.Courses)
+    {
+        <li>
+            <h4>@course.Name</h4>
+            <p>Lecturer: @(course.Lecturer?.Name ?? "unknown")</p>
+            <p>Students (@course.StudentCourses.Count):</p>
+            <ul>
+                @foreach (var student in course.StudentCourses.OrderBy(sc => sc.Student.Name))
+                {
+                    <li>
+                        @student.Student.Name
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
