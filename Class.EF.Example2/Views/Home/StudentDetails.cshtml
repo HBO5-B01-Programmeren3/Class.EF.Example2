@@ -1,0 +1,39 @@
+﻿@model Class.EF.Example2.Entities.Student
+@{
+    ViewData["Title"] = "StudentDetails";
+}
+
+<h2>Student Details</h2>
+<hr/>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="UpdateStudent">
+            <input asp-for="Id" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthdate" class="control-label"></label>
+                <input asp-for="Birthdate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Scholarship" class="control-label"></label>
+                <input asp-for="Scholarship" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<form asp-action="DeleteStudent">
+    <input asp-for="Id" type="hidden" />
+    <input type="submit" value="Delete" class="btn btn-danger" />
+</form>
+
+<div>
+    <a asp-action="Index">Back To Overview</a>
+</div>

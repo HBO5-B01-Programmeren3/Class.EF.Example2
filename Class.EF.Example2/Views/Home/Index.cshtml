@@ -34,8 +34,8 @@
             <h4>Name: @student.Name</h4>
             <p>Scholarship: @(student.Scholarship?.ToString("C2") ?? "None")</p>
             <p>Birthday: @(student.Birthdate.ToString("dd MMMM yyyy"))</p>
-            <p>E-mail: @student.ContactInfo.Email</p>
-            <p>Phone: @student.ContactInfo.Phone</p>
+            <p>E-mail: @(student.ContactInfo?.Email ?? "None")</p>
+            <p>Phone: @(student.ContactInfo?.Phone  ?? "None")</p>
         </li>
     }
 </ul>
@@ -52,7 +52,7 @@
                 @foreach (var student in course.StudentCourses.OrderBy(sc => sc.Student.Name))
                 {
                     <li>
-                        @student.Student.Name
+                        @student.Student.Name [<a asp-action="StudentDetails" asp-route-id="@student.StudentId">Details</a>]
                     </li>
                 }
             </ul>

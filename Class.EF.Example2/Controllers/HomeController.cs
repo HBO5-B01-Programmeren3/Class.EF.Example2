@@ -51,5 +51,68 @@ namespace Class.EF.Example2.Controllers
 
             return View(vm);
         }
+
+        public IActionResult StudentDetails(long id)
+        {
+            var student = schoolContext.Students.Find(id);
+
+            if (student != null)
+            {
+                return View(student);
+            }
+            else
+            {
+                return NotFound($"A student with Id {id} was not found");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateStudent(Student student)
+        {
+            if (student != null)
+            {
+                schoolContext.Update(student);
+                schoolContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return NotFound($"A student with id {student.Id} was not found");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteStudent(Student student)
+        {
+            Student studentToDelete = schoolContext.Students.Find(student.Id);
+
+            if (student != null)
+            {
+                schoolContext.Remove(studentToDelete);
+                schoolContext.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return NotFound($"A student with id {student.Id} was not found");
+            }
+        }
+
+        public IActionResult CreateStudent()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateStudent(Student student)
+        {
+            schoolContext.Students.Add(student);
+            schoolContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
     }
 }
