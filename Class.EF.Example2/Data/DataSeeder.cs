@@ -79,6 +79,31 @@ namespace Class.EF.Example2.Data
                 });
 
             #endregion
+
+            modelBuilder.Entity<StudentCourse>().HasData(
+                new StudentCourse { // Marty -> Programming C#
+                    StudentId = 1, CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                },
+                new StudentCourse { // Marty -> ASP.NET Core
+                    StudentId = 1, CourseId = Guid.Parse("33333333-3333-3333-3333-333333333333")
+                },
+                new StudentCourse { // Chris -> Programming C#
+                    StudentId = 2, CourseId = Guid.Parse("11111111-1111-1111-1111-111111111111")
+                },
+                new StudentCourse { // Chris -> Elementary Database Design
+                    StudentId = 2, CourseId = Guid.Parse("22222222-2222-2222-2222-222222222222")
+                },
+                new StudentCourse { // Chris -> ASP.NET Core
+                    StudentId = 2, CourseId = Guid.Parse("33333333-3333-3333-3333-333333333333")
+                },
+                new StudentCourse { // Will -> Elementary Database Design
+                    StudentId = 4, CourseId = Guid.Parse("22222222-2222-2222-2222-222222222222")
+                },
+                new StudentCourse { // Will -> ASP.NET Core
+                    StudentId = 4, CourseId = Guid.Parse("33333333-3333-3333-3333-333333333333")
+                }
+            );
+
         }
     }
 }
